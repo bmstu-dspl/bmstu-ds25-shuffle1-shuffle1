@@ -1,0 +1,16 @@
+name: Request Assignment
+on: [create]
+
+jobs:
+  request_assignment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send request to server
+        run: |
+          curl -X POST "https://townsfolk.ru/api/request_assignment" \
+          -H "Content-Type: application/json" \
+          -H "X-API-Key: RANDOMSHITKEY" \
+          -d '{
+                "assignment_name": "shuffle1",
+                "repo_full_name": "${{ github.repository }}"
+              }'

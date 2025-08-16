@@ -1,0 +1,20 @@
+name: Submit Assignment
+on:
+  pull_request:
+    types: [closed]
+    branches: [feedback]
+
+jobs:
+  submit_assignment:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send submission to server
+        run: |
+          curl -X POST "https://townsfolk.ru/api/submit_assignment" \
+          -H "Content-Type: application/json" \
+          -H "X-API-Key: RANDOMSHITKEY" \
+          -d '{
+                "assignment_name": "shuffle1",
+                "repo_full_name": "${{ github.repository }}"
+              }'
